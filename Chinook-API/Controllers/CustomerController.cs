@@ -24,5 +24,17 @@ namespace Chinook_API.Controllers
 
             return Ok(customers);
         }
+
+        [HttpGet("country_exception/{country}")]
+        public IActionResult GetByAllCountriesExcept(string country)
+        {
+            var repo = new CustomerRepository();
+            var customers = repo.GetByAllCountriesExcept(country);
+
+            if (!customers.Any())
+                return NotFound();
+
+            return Ok(customers);
+        }
     }
 }
