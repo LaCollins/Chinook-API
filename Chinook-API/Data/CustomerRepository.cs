@@ -1,4 +1,5 @@
 ﻿using Chinook_API.Model;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -82,6 +83,27 @@ namespace Chinook_API.Data
                 }
 
                 return customers;
+            }
+        }
+
+        //Provide a query showing the Invoices of customers who are from Brazil.The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
+
+        public IEnumerable<InvoiceByCountry> GetInvoiceByCountry(string country)
+        {
+            var query = @"
+                        SELECT Customer.FirstName + ' ' + Customer.LastName AS CustomerName, Invoice.InvoiceId, Invoice.InvoiceDate, Invoice.BillingCountry
+                        FROM Customer
+	                        JOIN Invoice
+		                        on Customer.CustomerId = Invoice.CustomerId
+                        WHERE Country = @Country";
+
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var parameters = new { Country = country };
+
+                var invoice = db.Query<InvoiceByCountry>(query, parameters);
+
+                return invoice;
             }
         }
     }
