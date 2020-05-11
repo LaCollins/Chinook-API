@@ -36,5 +36,17 @@ namespace Chinook_API.Controllers
 
             return Ok(customers);
         }
+
+        [HttpGet("invoice/country/{country}")]
+        public IActionResult GetInvoiceByCountry(string country)
+        {
+            var repo = new CustomerRepository();
+            var invoices = repo.GetInvoiceByCountry(country);
+
+            if (!invoices.Any())
+                return NotFound();
+
+            return Ok(invoices);
+        }
     }
 }
