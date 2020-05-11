@@ -106,5 +106,17 @@ namespace Chinook_API.Data
                 return invoice;
             }
         }
+
+        public IEnumerable<UniqueBillingCountry> GetUniqueCountries()
+        {
+            var query = "SELECT DISTINCT BillingCountry FROM Invoice";
+
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var countries = db.Query<UniqueBillingCountry>(query);
+
+                return countries;
+            }
+        }
     }
 }

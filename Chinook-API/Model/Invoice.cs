@@ -12,4 +12,9 @@ namespace Chinook_API.Model
         public DateTime InvoiceDate { get; internal set; }
         public string BillingCountry { get; internal set; }
     }
+
+    public class UniqueBillingCountry
+    {
+        public string BillingCountry { get; internal set; }
+    }
 }

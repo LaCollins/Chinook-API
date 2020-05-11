@@ -48,5 +48,29 @@ namespace Chinook_API.Controllers
 
             return Ok(invoices);
         }
+
+        [HttpGet("employee/agent")]
+        public IActionResult GetSalesAgents()
+        {
+            var repo = new EmployeeRepository();
+            var agents = repo.GetSalesAgents();
+
+            if (!agents.Any())
+                return NotFound();
+
+            return Ok(agents);
+        }
+
+        [HttpGet("billingCountries")]
+        public IActionResult GetUniqueCountries()
+        {
+            var repo = new CustomerRepository();
+            var countries = repo.GetUniqueCountries();
+
+            if (!countries.Any())
+                return NotFound();
+
+            return Ok(countries);
+        }
     }
 }
